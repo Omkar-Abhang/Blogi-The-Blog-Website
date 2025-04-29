@@ -15,11 +15,19 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db), user=De
     return new_post
 
 @router.get("/posts", response_model=List[schemas.PostOut])
-def get_posts(skip: int = 0, limit: int = 10, search: Optional[str] = Query(None), db: Session = Depends(get_db)):
+def get_posts(
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 10,
+    search: Optional[str] = Query(None, description="Search in title or content")
+):
     query = db.query(models.Post)
     if search:
-        query = query.filter(models.Post.title.ilike(f"%{search}%") | models.Post.content.ilike(f"%{search}%"))
-    return query.order_by(models.Post.created_at.desc()).offset(skip).limit(limit).all()
+        query = query.filter(
+            models.Post.title.ilike(f"%{search}%") | models.Post.content.ilike(f"%{search}%")
+        )
+    posts = query.offset(skip).limit(limit).all()
+    return posts
 
 @router.get("/posts/{post_id}", response_model=schemas.PostOut)
 def get_post(post_id: int, db: Session = Depends(get_db)):
