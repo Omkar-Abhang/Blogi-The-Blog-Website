@@ -12,7 +12,7 @@ app = FastAPI()
 # Set up CORS middleware to accept requests from any origin
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins, change to specific origins if needed
+    allow_origins=["https://blogiblog-website.vercel.app"],  # Allows all origins, change to specific origins if needed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
