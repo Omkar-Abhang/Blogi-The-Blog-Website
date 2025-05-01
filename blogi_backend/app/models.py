@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime,LargeBinary
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from .database import Base
+from datetime import datetime, timezone
+
 
 class User(Base):
     __tablename__ = "users"
@@ -17,8 +18,8 @@ class Post(Base):
     title = Column(String(200), index=True)
     content = Column(Text, nullable=False)
     image = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     author_id = Column(Integer, ForeignKey("users.id"))
 
     author = relationship("User", back_populates="posts")

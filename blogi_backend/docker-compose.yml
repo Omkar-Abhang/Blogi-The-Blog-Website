@@ -16,7 +16,9 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: blogi_backend
     restart: always
     env_file:

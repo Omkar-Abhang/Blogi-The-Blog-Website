@@ -47,7 +47,6 @@ export default function LoginPage() {
       });
       router.push('/'); // Redirect to homepage after successful login
       // Optional: Call checkAuthStatus from useAuth if available globally or trigger context update
-      window.location.reload(); // Reload to update auth state in the app
     } catch (error) {
       console.error('Login failed:', error);
        toast({
