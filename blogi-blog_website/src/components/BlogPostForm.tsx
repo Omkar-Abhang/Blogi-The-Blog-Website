@@ -15,7 +15,9 @@ import { Loader2, Trash2, Upload } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from "@/lib/utils"; // Import cn utility
 import { format } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
+const IST_TIMEZONE = 'Asia/Kolkata'; // Indian Standard Time (IST) timezone
 
 const postSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title cannot exceed 100 characters'),
@@ -85,10 +87,10 @@ export default function BlogPostForm({
       content: data.content,
       image: data.image instanceof File ? data.image : undefined,
     };
-  
+
     await onSubmit(submissionData);
-  };  
-  
+  };
+
   const toBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -97,7 +99,7 @@ export default function BlogPostForm({
       reader.onerror = reject;
     });
   };
-  
+
 
 
   return (
@@ -195,12 +197,13 @@ export default function BlogPostForm({
             </Button>
             {initialData?.created_at && (
               <p className="text-sm text-gray-500 text-center">
-                Created_at: {format(new Date(initialData.created_at), 'PPp')}
+                Created_at: {format(toZonedTime(new Date(initialData.created_at), IST_TIMEZONE), 'PPp')}
               </p>
             )}
+
             {initialData?.updated_at && (
               <p className="text-sm text-gray-500 text-center">
-                Last updated: {format(new Date(initialData.updated_at), 'PPp')}
+                Last updated: {format(toZonedTime(new Date(initialData.updated_at), IST_TIMEZONE), 'PPp')}
               </p>
             )}
 

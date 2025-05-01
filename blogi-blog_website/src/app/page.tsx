@@ -44,7 +44,7 @@ export default function Home() {
       }
 
       // Sort posts by creation date (most recent first) - Assuming API returns unsorted or differently sorted
-      postsData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      postsData.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       setAllPosts(postsData); // Store all fetched/searched posts
       setTotalPages(Math.ceil(postsData.length / POSTS_PER_PAGE));
