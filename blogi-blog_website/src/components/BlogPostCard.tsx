@@ -21,19 +21,25 @@ export default function BlogPostCard({ post, showActions = false, onDelete }: Bl
       onDelete(post.id.toString());
     }
   };
+  const getImageSrc = (img: string | undefined) => {
+  if (!img) return 'https://picsum.photos/400/200';
+  if (img.startsWith('http')) return img;
+  if (img.startsWith('data:image')) return img;
+  return `data:image/jpeg;base64,${img}`;
+};
 
   return (
     <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full bg-card">
       {post.image && (
         <div className="relative w-full h-48">
-          <Image
-            src={post.image?.startsWith('http') ? post.image : 'https://picsum.photos/400/200'}
-            alt={post.title}
-            fill
-            style={{ objectFit: 'cover' }}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={false}
-          />
+         <Image
+  src={getImageSrc(post.image)}
+  alt={post.title}
+  fill
+  style={{ objectFit: 'cover' }}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  priority={false}
+/>
 
         </div>
       )}
