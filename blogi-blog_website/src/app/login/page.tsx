@@ -45,9 +45,9 @@ export default function LoginPage() {
         title: "Login Successful",
         description: "Welcome back!",
       });
-      router.push('/'); // Redirect to homepage after successful login
-      window.location.reload(); // not ideal, but forces header to update
-
+      router.replace('/'); // Redirect to homepage after successful login
+       // not ideal, but forces header to update
+      
       // Optional: Call checkAuthStatus from useAuth if available globally or trigger context update
     } catch (error) {
       console.error('Login failed:', error);
