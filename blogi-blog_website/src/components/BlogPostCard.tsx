@@ -72,7 +72,7 @@ export default function BlogPostCard({ post, showActions = false, onDelete }: Bl
         {showActions && onDelete && (
           <div className="flex space-x-2">
             <Button variant="outline" size="icon" asChild>
-              <Link href={`/posts/${post.id.toString}`} title="Edit Post">
+              <Link href={`/posts/${post.id}`} title="Edit Post">
                 <Edit className="w-4 h-4" />
               </Link>
             </Button>
